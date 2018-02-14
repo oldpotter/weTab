@@ -8,13 +8,14 @@ Component({
 	},
 
 	data: {
-		text: undefined
+		text: ''
 	},
 
 	methods: {
 		_showOrHidden(newValue, oldValue) {
 			this.setData({
-				hidden: newValue
+				hidden: newValue,
+				text:''
 			})
 		},
 

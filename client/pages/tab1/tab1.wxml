@@ -1,17 +1,11 @@
 <!--pages/tab1/tab1.wxml-->
+<input class='input' placeholder='输入要搜索的歌曲名' bindinput='onInput'></input>
+<button class='search' bindtap='onClickSearch'>搜索</button>
+<view wx:for='{{songs}}'>
+  <view class='song' bindtap='onClickSong' data-index='{{index}}'>
+    <view>歌名：{{item.name}}</view>
+    <view>艺术家：{{item.artists[0].name}}</view>
+    <view>专辑：{{item.ablum.name}}</view>
+  </view>
 
-<view wx:for='{{array}}' wx:for-item='rowItem' wx:for-index='rowIndex'>
-  <block wx:if='{{rowItem.isBlank}}'>
-    <view class='chords-line'>
-      <block wx:for='{{rowItem.value}}' wx:for-item='columnItem' wx:for-index='columnIndex'>
-        <view hover-class='touch' bindtap='onClickChord' data-position='{{rowIndex + "-"+columnIndex}}'>
-          <text class='chord' decode='true'>{{columnItem}}</text>
-        </view>
-      </block>
-    </view>
-  </block>
-  <block wx:else>
-    <text decode='true'>{{rowItem.value}}</text>
-  </block>
 </view>
-<klinput title='和弦' hidden='{{hiddenInput}}' bind:onclickcancel='onClickCancel' bind:onclickconfirm='onClickConfirm' />

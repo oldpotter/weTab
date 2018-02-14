@@ -1,33 +1,24 @@
 const config = require('../../config.js')
 Page({
 	data: {
-		array: undefined,
-		hiddenInput: true,
-		position: undefined
+		keywords: undefined,
+		songs: undefined
 	},
 
-	onLoad() {
+	onInput(event) {
+		this.setData({ keywords: event.detail.value })
+	},
+
+	onClickSearch() {
 		const _this = this
 		wx.request({
-			url: `${config.service.lyricUrl}?id=33894312`,
+			url: `${config.service.searchUrl}${_this.data.keywords}&limit=10`,
 			success: function (res) {
 				if (res.statusCode == 200) {
-					const obj = JSON.parse(res.data.data.body)
-					const strLyric = obj.lrc.lyric
-						.replace(/\[[\d.:]+\]/g, '\n')
-					// console.log(strLyric)
-					let array = strLyric.split('\n')
-					// console.log(array)
-					const blanks = []
-					for (let i = 0; i < 20; i++) {
-						blanks.push('&nbsp;'.repeat(2))
+					const json = JSON.parse(res.data.data.body)
+					if (json.code == 200) {
+						_this.setData({ songs: json.result.songs })
 					}
-					array = array.map(item => item = {
-						isBlank: item == '',
-						value: item == '' ? blanks : item
-					})
-					console.log(array)
-					_this.setData({ array })
 				}
 			},
 			fail: function (res) {
@@ -37,27 +28,16 @@ Page({
 		})
 	},
 
-	onClickChord(event) {
-		this.setData({
-			hiddenInput: false,
-			position: event.currentTarget.dataset.position
+	onClickSong(event) {
+		const index = event.currentTarget.dataset.index
+		const songId = this.data.songs[index].id
+		const songName = this.data.songs[index].name
+		console.log(this.data.songs[index].id)
+		wx.navigateTo({
+			url: `../edit/edit?songId=${songId}&songName=${songName}`,
+			success: function (res) { },
+			fail: function (res) { },
+			complete: function (res) { },
 		})
 	},
-
-	onClickCancel() {
-		this.setData({ hiddenInput: true })
-	},
-	onClickConfirm(event) {
-		// console.log('onClickConfirm:', event.detail.value)
-		const chord = event.detail.value
-		const position = this.data.position
-		const rowIndex = position.split('-')[0]
-		const columnIndex = position.split('-')[1]
-		const param = `array[${rowIndex}].value[${columnIndex}]`
-		this.setData({
-			[param]: chord,
-			hiddenInput:true,
-		})
-	},
-
 })

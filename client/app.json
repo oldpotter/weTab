@@ -1,12 +1,28 @@
 {
   "pages": [
-    "pages/tab1/tab1"
+    "pages/tab1/tab1",
+    "pages/tab2/tab2",
+    "pages/edit/edit"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "Wafer Quick Start",
-    "navigationBarTextStyle": "black"
+    "navigationBarTitleText": "weTab",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "default"
+  },
+  "tabBar": {
+    "position": "top",
+    "list": [
+      {
+        "pagePath": "pages/tab1/tab1",
+        "text": "tab1"
+      },
+      {
+        "pagePath": "pages/tab2/tab2",
+        "text": "tab2"
+      }
+    ]
   }
 }

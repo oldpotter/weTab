@@ -1,0 +1,7 @@
+<!--pages/tab2/tab2.wxml-->
+<view wx:for='{{songs}}'>
+  <view class='song' data-index='{{index}}'>
+    <view bindtap='onClickSong' data-index='{{index}}'>歌名：{{item.songName}}</view>
+  </view>
+
+</view>

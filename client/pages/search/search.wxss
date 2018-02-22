@@ -2,3 +2,9 @@
 .song{
 	border: 1rpx solid lightgray;
 }
+
+.search-bg{
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+}

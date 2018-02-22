@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/tab1/tab1",
-    "pages/tab2/tab2",
+    "pages/home/home",
+    "pages/search/search",
     "pages/edit/edit"
   ],
   "window": {
@@ -11,18 +11,5 @@
     "navigationBarTitleText": "weTab",
     "navigationBarTextStyle": "black",
     "navigationStyle": "default"
-  },
-  "tabBar": {
-    "position": "top",
-    "list": [
-      {
-        "pagePath": "pages/tab1/tab1",
-        "text": "tab1"
-      },
-      {
-        "pagePath": "pages/tab2/tab2",
-        "text": "tab2"
-      }
-    ]
   }
 }

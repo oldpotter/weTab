@@ -1,16 +1,26 @@
-<button type='primary' bindtap='onClickSave'>保存</button>
-<view wx:for='{{array}}' wx:for-item='rowItem' wx:for-index='rowIndex'>
-  <block wx:if='{{rowItem.isBlank}}'>
-    <view class='chords-line'>
-      <block wx:for='{{rowItem.value}}' wx:for-item='columnItem' wx:for-index='columnIndex'>
-        <view hover-class='touch' bindtap='onClickChord' data-position='{{rowIndex + "-"+columnIndex}}'>
-          <text class='chord' decode='true'>{{columnItem}}</text>
-        </view>
-      </block>
-    </view>
-  </block>
-  <block wx:else>
-    <text decode='true'>{{rowItem.value}}</text>
-  </block>
+<view class='content'>
+  <view wx:for='{{array}}' wx:for-item='rowItem' wx:for-index='rowIndex'>
+    <block wx:if='{{rowItem.isBlank}}'>
+      <view class='chords_line'>
+        <block wx:for='{{rowItem.value}}' wx:for-item='columnItem' wx:for-index='columnIndex'>
+          <view hover-class='touch' bindtap='onClickChord' data-position='{{rowIndex + "-"+columnIndex}}'>
+            <text class='chord' decode='true'>{{columnItem}}</text>
+          </view>
+        </block>
+      </view>
+    </block>
+    <block wx:else>
+      <view class='lyric_line'>
+        <text decode='true'>{{rowItem.value}}</text>
+        <image hidden='{{!isEditing}}' class='delete-img' src='../../resources/close.png' data-position='{{rowIndex}}' bindtap='onClickDeleteLyric'></image>
+      </view>
+    </block>
+  </view>
 </view>
+<view class='btns'>
+  <image class='edit-img' src='../../resources/edit.png' bindtap='onClickEdit'></image>
+  <image class='save-img' src='../../resources/save.png' bindtap='onClickSave'></image>
+</view>
+
+
 <klinput title='和弦' hidden='{{hiddenInput}}' bind:onclickcancel='onClickCancel' bind:onclickconfirm='onClickConfirm' />

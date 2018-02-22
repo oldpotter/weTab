@@ -1,21 +1,29 @@
 const config = require('../../config.js')
+const util = require('../../utils/util.js')
 const app = getApp()
 Page({
 	data: {
 		array: undefined,
 		hiddenInput: true,
 		position: undefined,
+		isEditing: false
 	},
-
 
 	onLoad(options) {
 		this.songId = options.songId
-		if (options.index) {
+		if (options.index) {//本地数据
 			this.setData({ array: app.songs[options.index].tab })
 			return
 		}
 		this.songName = options.songName
 		const _this = this
+		wx.showLoading({
+			title: '',
+			mask: true,
+			success: function (res) { },
+			fail: function (res) { },
+			complete: function (res) { },
+		})
 		wx.request({
 			url: `${config.service.lyricUrl}${this.songId}`,
 			success: function (res) {
@@ -23,10 +31,7 @@ Page({
 					const obj = JSON.parse(res.data.data.body)
 					const strLyric = obj.lrc.lyric
 						.replace(/\[[\d.:]+\]/g, '\n')
-					// console.log(obj)
 					let array = strLyric.split('\n')
-					// console.log(array)
-
 					array = array.map(item => {
 						const blanks = []
 						for (let i = 0; i < 20; i++) {
@@ -37,14 +42,15 @@ Page({
 							value: item == '' ? blanks : item
 						}
 					})
-					// console.log(array)
 					_this.setData({ array })
 				}
 			},
 			fail: function (res) {
 				console.error(res)
 			},
-			complete: function (res) { },
+			complete: function (res) {
+				wx.hideLoading()
+			},
 		})
 	},
 
@@ -58,6 +64,7 @@ Page({
 	onClickCancel() {
 		this.setData({ hiddenInput: true })
 	},
+
 	onClickConfirm(event) {
 		// console.log('onClickConfirm:', event.detail.value)
 		const chord = event.detail.value
@@ -97,4 +104,18 @@ Page({
 		})
 	},
 
+	onClickEdit() {
+		const isEditing = !this.data.isEditing
+		this.setData({ isEditing })
+	},
+
+	onClickDeleteLyric(event) {
+		const index = event.currentTarget.dataset.position
+		// console.log(this.data.array[index - 1])
+		// console.log(this.data.array[index])
+		const array = this.data.array
+		array.splice(index - 1, 2)
+		// console.log(array)
+		this.setData({array})
+	},
 })

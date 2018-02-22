@@ -4,9 +4,4 @@
     <view>歌名：{{item.songName}}</view>
   </view>
 </view>
-
-<movable-area class='search-area'>
-  <movable-view class='search-view' x="{{x}}" y="{{y}}" direction="horizontal">
-	<image class='search-img' src='../../resources/search.png' bindtap='onClickSearch'></image>
-  </movable-view>
-</movable-area>
+<image class='search-img' src='../../resources/search.png' bindtap='onClickSearch'></image>

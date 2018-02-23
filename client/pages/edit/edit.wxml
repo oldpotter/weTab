@@ -13,13 +13,13 @@
   <view class='chord_input_panel-line'></view>
   <view class='chord_input_panel-bottom'>
     <view class='chord_input_panel-res_bg'>
-      <view class='chord_input_panel-res'>{{resChord}}</view>
+      <view class='chord_input_panel-res' hidden='{{showEditChordInput}}'>{{resChord}}</view>
       <image class='chord_input_panel-img' hidden='{{!resChord}}' src='../../resources/delete.png' bindtap='onClickDeleteChord'></image>
       <image class='chord_input_panel-img' hidden='{{!resChord}}' src='../../resources/edit.png' bindtap='onClickEditChord'></image>
     </view>
 
     <view class='chord_input_panel-btns'>
-      <button class='chord_input_panel-btn' size='mini' type='primary'>确定</button>
+      <button class='chord_input_panel-btn' size='mini' type='primary' bindtap='onClockConfirmInput'>确定</button>
       <button class='chord_input_panel-btn' size='mini' type='default' bindtap='onClickCloseInput'>取消</button>
     </view>
 
@@ -27,7 +27,8 @@
 
 </view>
 
-<klinput title='shshs' hidden='true'/>
+<klinput class='klinput-input' title='输入和弦' hidden='{{!showEditChordInput}}'
+bind:onclickconfirm='onClickConfirmEdit' bind:onclickcancel='onClickCancelEdit' />
 
 <view class='content'>
   <view wx:for='{{array}}' wx:for-item='rowItem' wx:for-index='rowIndex'>

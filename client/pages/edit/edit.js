@@ -3,13 +3,14 @@ const util = require('../../utils/util.js')
 const app = getApp()
 Page({
 	data: {
+		showEditChordInput: false,//编辑框
 		array: undefined,
 		hiddenInput: true,
 		position: undefined,
 		isEditing: false,
 		scales: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii'],
 		kinds: ['dim', 'aug', '3', '4', '5', '6', '7', '9', '11', '13', 'sus2', 'sus4', '-', '+', '/'],
-		resChord:undefined,
+		resChord: undefined,
 	},
 
 	onLoad(options) {
@@ -57,6 +58,7 @@ Page({
 		})
 	},
 
+	//点击某个和弦
 	onClickChord(event) {
 		this.setData({
 			hiddenInput: false,
@@ -64,24 +66,6 @@ Page({
 		})
 	},
 
-	onClickCancel() {
-		this.setData({ hiddenInput: true })
-	},
-
-	onClickConfirm(event) {
-		// console.log('onClickConfirm:', event.detail.value)
-		const chord = event.detail.value
-		const position = this.data.position
-		const rowIndex = position.split('-')[0]
-		const columnIndex = position.split('-')[1]
-		const param = `array[${rowIndex}].value[${columnIndex}]`
-		console.log(param)
-		this.setData({
-			[param]: chord,
-			hiddenInput: true,
-		})
-		console.log(this.data.array)
-	},
 
 	onClickSave() {
 		const newSong = app.songs.every((song, index, songs) => {
@@ -122,25 +106,56 @@ Page({
 		this.setData({ array })
 	},
 
-	onClickScaleItem(event){
+	onClickScaleItem(event) {
 		const chord = event.currentTarget.dataset.chord
 		let resChord = this.data.resChord || ''
 		resChord = resChord + chord
-		this.setData({resChord})
+		this.setData({ resChord })
 	},
 
-	onClickEditChord(){
-		
+	//编辑和弦
+	onClickEditChord() {
+		this.setData({
+			showEditChordInput: true
+		})
+	},
+	//删除输入的和弦
+	onClickDeleteChord() {
+		this.setData({
+			resChord: ''
+		})
+	},
+	//关闭和弦输入区域
+	onClickCloseInput() {
+		this.setData({
+			hiddenInput: true,
+		})
+	},
+	//确定输入的和弦
+	onClockConfirmInput() {
+		const position = this.data.position
+		const rowIndex = position.split('-')[0]
+		const columnIndex = position.split('-')[1]
+		const param = `array[${rowIndex}].value[${columnIndex}]`
+		this.setData({
+			[param]: this.data.resChord,
+			hiddenInput: true,
+		})
 	},
 
-	onClickDeleteChord(){
+	//编辑和弦保存
+	onClickConfirmEdit(event) {
+		const chord = event.detail.value
 		this.setData({
-			resChord:''
+			resChord:chord,
+			showEditChordInput:false,
 		})
 	},
-	onClickCloseInput(){
+
+	//编辑和弦取消
+	onClickCancelEdit() { 
 		this.setData({
-			hiddenInput: true,			
+			showEditChordInput:false,
 		})
-	}
+	},
 })

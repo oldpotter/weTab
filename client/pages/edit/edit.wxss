@@ -50,12 +50,11 @@
 .chord_input_panel-bg {
   position: fixed;
   width: 100%;
-  height: 50%;
+  /* height: 60%; */
   background: lightgray;
   opacity: 0.9;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  bottom: 120rpx;
+  left: 0;
 }
 
 .chord_input_panel-item {
@@ -82,11 +81,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-	align-items: center;
+  align-items: center;
 }
-.chord_input_panel-res_bg{
-	display: flex;
-	flex-direction: row;
+
+.chord_input_panel-res_bg {
+  display: flex;
+  flex-direction: row;
 }
 
 .chord_input_panel-res {
@@ -101,9 +101,16 @@
 }
 
 .chord_input_panel-btns {
-	margin-right: 10rpx;
+  margin-right: 10rpx;
 }
 
 .chord_input_panel-btn {
-	margin-right: 10rpx;
+  margin-right: 10rpx;
+}
+
+.klinput-input {
+  position: absolute;
+  width: 50%;
+  left: 50%;
+  transform: translateX(-50%);
 }

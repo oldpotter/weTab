@@ -6,7 +6,10 @@ Page({
 		array: undefined,
 		hiddenInput: true,
 		position: undefined,
-		isEditing: false
+		isEditing: false,
+		scales: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii'],
+		kinds: ['dim', 'aug', '3', '4', '5', '6', '7', '9', '11', '13', 'sus2', 'sus4', '-', '+', '/'],
+		resChord:undefined,
 	},
 
 	onLoad(options) {
@@ -116,6 +119,28 @@ Page({
 		const array = this.data.array
 		array.splice(index - 1, 2)
 		// console.log(array)
-		this.setData({array})
+		this.setData({ array })
 	},
+
+	onClickScaleItem(event){
+		const chord = event.currentTarget.dataset.chord
+		let resChord = this.data.resChord || ''
+		resChord = resChord + chord
+		this.setData({resChord})
+	},
+
+	onClickEditChord(){
+		
+	},
+
+	onClickDeleteChord(){
+		this.setData({
+			resChord:''
+		})
+	},
+	onClickCloseInput(){
+		this.setData({
+			hiddenInput: true,			
+		})
+	}
 })

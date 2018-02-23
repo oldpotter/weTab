@@ -4,11 +4,11 @@ Page({
 		songs: undefined
 	},
 
-	onLoad() {
+	onShow() {
 		this.setData({ songs: app.songs })
 	},
 
-	onClickSong(event){
+	onClickSong(event) {
 		console.log(event)
 		const index = event.currentTarget.dataset.index
 		wx.navigateTo({
@@ -19,12 +19,20 @@ Page({
 		})
 	},
 
-	onClickSearch(){
+	onClickSearch() {
 		wx.navigateTo({
 			url: '../search/search',
-			success: function(res) {},
-			fail: function(res) {},
-			complete: function(res) {},
+			success: function (res) { },
+			fail: function (res) { },
+			complete: function (res) { },
 		})
-	}
+	},
+	onClickDelete(event) {
+		const index = event.currentTarget.dataset.index
+		const songs = app.songs
+		songs.splice(index, 1)
+		this.setData({ songs })
+		app.songs = songs
+		wx.setStorageSync('songs', songs)
+	},
 })

@@ -1,3 +1,34 @@
+<view class='chord_input_panel-bg' hidden='{{hiddenInput}}'>
+  <block wx:for='{{scales}}'>
+    <view class='chord_input_panel-item' data-chord='{{item}}' bindtap='onClickScaleItem'>
+      <view class='chord_input_panel-chord'>{{item}}</view>
+    </view>
+  </block>
+  <view class='chord_input_panel-line'></view>
+  <block wx:for='{{kinds}}'>
+    <view class='chord_input_panel-item' data-chord='{{item}}' bindtap='onClickScaleItem'>
+      <view class='chord_input_panel-chord'>{{item}}</view>
+    </view>
+  </block>
+  <view class='chord_input_panel-line'></view>
+  <view class='chord_input_panel-bottom'>
+    <view class='chord_input_panel-res_bg'>
+      <view class='chord_input_panel-res'>{{resChord}}</view>
+      <image class='chord_input_panel-img' hidden='{{!resChord}}' src='../../resources/delete.png' bindtap='onClickDeleteChord'></image>
+      <image class='chord_input_panel-img' hidden='{{!resChord}}' src='../../resources/edit.png' bindtap='onClickEditChord'></image>
+    </view>
+
+    <view class='chord_input_panel-btns'>
+      <button class='chord_input_panel-btn' size='mini' type='primary'>确定</button>
+      <button class='chord_input_panel-btn' size='mini' type='default' bindtap='onClickCloseInput'>取消</button>
+    </view>
+
+  </view>
+
+</view>
+
+<klinput title='shshs' hidden='true'/>
+
 <view class='content'>
   <view wx:for='{{array}}' wx:for-item='rowItem' wx:for-index='rowIndex'>
     <block wx:if='{{rowItem.isBlank}}'>
@@ -21,6 +52,3 @@
   <image class='edit-img' src='../../resources/edit.png' bindtap='onClickEdit'></image>
   <image class='save-img' src='../../resources/save.png' bindtap='onClickSave'></image>
 </view>
-
-
-<klinput title='和弦' hidden='{{hiddenInput}}' bind:onclickcancel='onClickCancel' bind:onclickconfirm='onClickConfirm' />

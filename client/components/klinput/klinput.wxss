@@ -4,7 +4,7 @@
 	background: #a9a9a9;
 }
 
-.kl-input_hidden {
+/* .kl-input_hidden {
   opacity: 0;
 	z-index: -1;
-}
+} */

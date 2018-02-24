@@ -1,5 +1,5 @@
 <!--components/kl-input/kl-input.wxml-->
-<view class='kl-input-container {{hidden?"kl-input_hidden":""}}'>
+<view class='kl-input-container' hidden='{{hidden}}'>
   <view class='kl-input-title'>{{title}}</view>
   <input class='kl-input-input' value='{{text}}' placeholder='在此输入...' focus='{{!hidden}}' bindblur='onBlur'/>
   <button class='kl-input-btn_cancel' size='mini' bindtap='onClickCancel'>取消</button>

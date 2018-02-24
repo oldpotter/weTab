@@ -3,6 +3,10 @@
   margin-bottom: 120rpx;
 }
 
+.chord{
+	/* font-size: 12px; */
+}
+
 .touch {
   background: lightblue;
 }
@@ -87,6 +91,8 @@
 .chord_input_panel-res_bg {
   display: flex;
   flex-direction: row;
+	justify-content: flex-start;
+	align-content: center;
 }
 
 .chord_input_panel-res {

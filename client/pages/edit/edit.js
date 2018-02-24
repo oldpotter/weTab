@@ -8,8 +8,9 @@ Page({
 		hiddenInput: true,
 		position: undefined,
 		isEditing: false,
+		recentUsedScales: [],
 		scales: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii'],
-		kinds: ['dim', 'aug', '3', '4', '5', '6', '7', '9', '11', '13', 'sus2', 'sus4', '-', '+', '/'],
+		kinds: ['dim', 'aug', '3', '4', '5', '6', '7', '9', 'add', '11', '13', 'sus2', 'sus4', '-', '+', '/'],
 		resChord: undefined,
 	},
 
@@ -106,6 +107,7 @@ Page({
 		this.setData({ array })
 	},
 
+	//点击一个和弦按钮
 	onClickScaleItem(event) {
 		const chord = event.currentTarget.dataset.chord
 		let resChord = this.data.resChord || ''
@@ -119,6 +121,7 @@ Page({
 			showEditChordInput: true
 		})
 	},
+
 	//删除输入的和弦
 	onClickDeleteChord() {
 		this.setData({
@@ -137,9 +140,17 @@ Page({
 		const rowIndex = position.split('-')[0]
 		const columnIndex = position.split('-')[1]
 		const param = `array[${rowIndex}].value[${columnIndex}]`
+		const recentUsedScales = this.data.recentUsedScales
+		if (!recentUsedScales.some(c => c == this.data.resChord)) {
+			recentUsedScales.push(this.data.resChord)
+			this.setData({
+				recentUsedScales: recentUsedScales,
+			})
+		}
 		this.setData({
 			[param]: this.data.resChord,
 			hiddenInput: true,
+			resChord:undefined
 		})
 	},
 
@@ -147,15 +158,15 @@ Page({
 	onClickConfirmEdit(event) {
 		const chord = event.detail.value
 		this.setData({
-			resChord:chord,
-			showEditChordInput:false,
+			resChord: chord,
+			showEditChordInput: false,
 		})
 	},
 
 	//编辑和弦取消
-	onClickCancelEdit() { 
+	onClickCancelEdit() {
 		this.setData({
-			showEditChordInput:false,
+			showEditChordInput: false,
 		})
 	},
 })
